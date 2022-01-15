@@ -55,10 +55,15 @@ class Info():
 
 class BankaCreditasAPI(GenericBankAPI):
     BASEURL = "https://api.creditas.cz/oam/v1"
+    ACCOUNT_TYPES=["current", "savings"]
 
-    def __init__(self, account_id, token):
+    def __init__(self, account_type, account_id, token):
+        if account_type not in self.ACCOUNT_TYPES:
+            raise ValueError("Invalid account type: \"{}\", valid are \"{}\"".format(account_type, ", ".join(self.ACCOUNT_TYPES)))
+
         super().__init__()
 
+        self._account_type = account_type
         self._account_id = account_id
         self._token = token
         self._rawdata = None
@@ -75,14 +80,14 @@ class BankaCreditasAPI(GenericBankAPI):
         }
 
         data = '{{"accountId":"{}"}}'.format(self._account_id)
-        res = requests.post("{}/account/current/get".format(self.BASEURL), data=data, headers=headers)
+        res = requests.post("{}/account/{}/get".format(self.BASEURL, self._account_type), data=data, headers=headers)
 
 
         if res.status_code != 200:
             raise Exception("Unknown error: {}: {}".format(res.status_code, res.text))
 
         self._rawdata = res.json()
-        self._info = Info(self._rawdata['currentAccount'])
+        self._info = Info(self._rawdata['{}Account'.format(self._account_type)])
 
 
     def __str__(self):

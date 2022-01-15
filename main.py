@@ -13,7 +13,7 @@ def main():
     fio_accounts = []
 
     for a in config['creditas']:
-        creditas_accounts.append(BankaCreditasAPI(a['account_id'], a['token']))
+        creditas_accounts.append(BankaCreditasAPI(a['account_type'], a['account_id'], a['token']))
 
     for a in creditas_accounts:
         print(a)
@@ -24,6 +24,11 @@ def main():
     for f in fio_accounts:
         print(f)
 
+    total_balance = 0
+    for balance in creditas_accounts+fio_accounts:
+        total_balance += balance.balance
+
+    print("Total balance: {}".format(total_balance))
 
 if __name__ == "__main__":
     main()

@@ -11,12 +11,12 @@
     ],
     "creditas": [
         {
-            "type": "basic",
+            "account_type": "current",
             "account_id": "",
             "token": ""
         },
         {
-            "type": "saving",
+            "account_type": "savings",
             "account_id": "",
             "token": ""
         }
