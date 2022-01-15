@@ -8,5 +8,17 @@
             "name": "My personal account",
             "token": ""
         }
+    ],
+    "creditas": [
+        {
+            "type": "basic",
+            "account_id": "",
+            "token": ""
+        },
+        {
+            "type": "saving",
+            "account_id": "",
+            "token": ""
+        }
     ]
 }
