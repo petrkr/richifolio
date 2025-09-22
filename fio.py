@@ -50,7 +50,7 @@ class Info():
 
 
 class FioBankAPI(GenericBankAPI):
-    BASEURL = "https://www.fio.cz/ib_api/rest"
+    BASEURL = "https://fioapi.fio.cz/v1/rest"
 
     def __init__(self, fio_token, name=None):
         super().__init__()
